@@ -29,9 +29,9 @@ public class EntretienController {
     @GetMapping
     public List<Entretien> getAllEntretiens(){
         System.out.println("sout - entré dasn get");
-        logger.info("info 2 - entré dasn get");
-        logger.warning("warning 2 - entré dasn get");
-        logger.severe("severe 2 - entré dasn get");
+        logger.info("info 3 - entré dasn get");
+        logger.warning("warning 3 - entré dasn get");
+        logger.severe("severe 3 - entré dasn get");
         return entretienRepository.findAll();
     }
 
