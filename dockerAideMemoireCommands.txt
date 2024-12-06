@@ -1,0 +1,43 @@
+// cours docker
+https://www.youtube.com/watch?v=IdMp7RhFVdA&list=PLn6POgpklwWq0iz59-px2z-qjDdZKEvWd&index=3
+
+// Liste les conteneurs actifs
+docker ps
+
+// Liste tous les conteneurs
+docker ps -a
+
+// Run une image
+// <image> = <url_regisrty>/<nom_image>:<tag>
+docker run <image> ?
+exemple docker run -d --name c1 nginx:latest // -d = mode detach
+
+// Stopper un containeur
+docker stop <name>
+
+// demarre un conteneur
+docker start <name>
+
+// Stopper et supprimer mon containeur
+docker rm -f <name>
+
+// exemple docker run
+// ti = terminal interractif, --rm = rm lors du stop du conteneur
+docker run -ti --rm --name c1 --hostname host1 --dns 8.8.8.8 debian:latest
+
+// Lsiter les id des conteneurs actif (-qa = all containers)
+docker ps -q
+
+// Imbriquer des commandes
+sudo docker rm -f $(sudo docker ps -qa)
+
+
+// Montage d'un volume
+docker run -d --name c1 -v <nom_volume>:/var/data/ debian:latest
+
+// Créer volume
+docker volume create mynginx
+
+// Entrer dans un conteneur
+docker exec -ti c1 bash
+

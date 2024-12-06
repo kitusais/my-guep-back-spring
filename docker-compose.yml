@@ -1,0 +1,42 @@
+# Logs de l'application dans volume-docker/logs/my-guep
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: my-guep-db-postgres
+    environment:
+      POSTGRES_DB: my-guep_001
+      POSTGRES_USER: spring_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-guep-network
+
+  app:
+    build:
+      context: .
+    image: my-guep-backend-spring
+    volumes:
+      - ./volume-docker/logs/my-guep:/var/log/my-guep
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/my-guep_001
+      SPRING_DATASOURCE_USERNAME: spring_user
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+          cpus: '0.5'
+    networks:
+      - my-guep-network
+
+volumes:
+  postgres_data:
+  
+networks:
+  my-guep-network:
+    driver: bridge
